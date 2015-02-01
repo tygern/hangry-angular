@@ -3,7 +3,8 @@
 angular
   .module('hangryApp', [
     'ngResource',
-    'ngRoute'
+    'ngRoute',
+    'config'
   ])
   .config(function ($routeProvider) {
     $routeProvider

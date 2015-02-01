@@ -77,4 +77,15 @@ Hangry::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  config.middleware.insert_before 0, "Rack::Cors", :debug => true, :logger => (-> { Rails.logger }) do
+    allow do
+      origins 'http://hangry.cfapps.io'
+
+      resource '*',
+               :headers => :any,
+               :methods => [:get, :post, :delete, :put, :options, :head],
+               :max_age => 0
+    end
+  end
 end

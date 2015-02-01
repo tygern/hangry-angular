@@ -5,16 +5,27 @@ describe('RestaurantListCtrl', function () {
   beforeEach(module('hangryApp'));
 
   var RestaurantListCtrl,
-    scope;
+    $scope,
+    RestaurantService,
+    restaurantDeferred;
 
-  beforeEach(inject(function ($controller, $rootScope) {
-    scope = $rootScope.$new();
+  beforeEach(inject(function ($controller, $rootScope, $q, _RestaurantService_) {
+    $scope = $rootScope.$new();
+    RestaurantService = _RestaurantService_;
+
+    restaurantDeferred = $q.defer();
+    spyOn(RestaurantService, 'getList').and.returnValue(restaurantDeferred.promise);
+
     RestaurantListCtrl = $controller('RestaurantListCtrl', {
-      $scope: scope
+      $scope: $scope,
+      RestaurantService: RestaurantService
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(scope.awesomeThings.length).toBe(3);
+  it('gets the list of restaurants', function () {
+    restaurantDeferred.resolve({data: [{a: 'restaurant'}]});
+    $scope.$apply();
+
+    expect($scope.restaurants).toEqual([{a: 'restaurant'}]);
   });
 });

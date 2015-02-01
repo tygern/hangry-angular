@@ -26,4 +26,15 @@ Hangry::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+
+  config.middleware.insert_before 0, "Rack::Cors", :debug => true, :logger => (-> { Rails.logger }) do
+    allow do
+      origins 'http://localhost:9000'
+
+      resource '*',
+               :headers => :any,
+               :methods => [:get, :post, :delete, :put, :options, :head],
+               :max_age => 0
+    end
+  end
 end

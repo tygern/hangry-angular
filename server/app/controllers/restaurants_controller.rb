@@ -1,5 +1,5 @@
 class RestaurantsController < ActionController::API
   def index
-    render json: []
+    render json: ['one', 'two']
   end
 end

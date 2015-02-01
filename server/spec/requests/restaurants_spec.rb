@@ -6,7 +6,7 @@ describe "Restaurants API" do
       get "/restaurants"
 
       expect(response.status).to eq 200
-      expect(JSON.parse(response.body)).to eq []
+      expect(JSON.parse(response.body)).to eq ['one', 'two']
     end
   end
 end
