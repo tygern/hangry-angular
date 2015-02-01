@@ -4,6 +4,7 @@ angular
   .module('hangryApp', [
     'ngResource',
     'ngRoute',
+    'geolocation',
     'config'
   ])
   .config(function ($routeProvider) {

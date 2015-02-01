@@ -19,6 +19,6 @@ describe('RestaurantService', function () {
       $httpBackend.expectGET(ENV.apiEndpoint + '/restaurants').respond('200', {data: [{a: 'restaurant'}]});
 
       RestaurantService.getList();
-    })
+    });
   });
 });
