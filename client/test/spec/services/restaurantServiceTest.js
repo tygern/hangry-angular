@@ -6,19 +6,31 @@ describe('RestaurantService', function () {
 
   var RestaurantService,
     $httpBackend,
-    ENV;
+    ENV,
+    $scope;
 
-  beforeEach((inject(function (_$httpBackend_, _RestaurantService_, _ENV_) {
+  beforeEach((inject(function (_$httpBackend_, _RestaurantService_, _ENV_, $rootScope) {
+    $scope = $rootScope.$new();
     $httpBackend = _$httpBackend_;
     RestaurantService = _RestaurantService_;
     ENV = _ENV_;
   })));
 
   describe('getList', function () {
-    it('gets the restaurants', function () {
-      $httpBackend.expectGET(ENV.apiEndpoint + '/restaurants').respond('200', {data: [{a: 'restaurant'}]});
+    it('gets the restaurants', function (done) {
+      $httpBackend.expectGET(ENV.apiEndpoint + '/restaurants?latitude=123&longitude=321').respond([{a: 'restaurant'}]);
 
-      RestaurantService.getList();
+      RestaurantService.getList({
+        latitude: '123',
+        longitude: '321'
+      }).then(function (result) {
+        expect(result).toEqual([{a: 'restaurant'}]);
+        done();
+      });
+
+      $httpBackend.flush();
+      $httpBackend.verifyNoOutstandingExpectation();
+      $httpBackend.verifyNoOutstandingRequest();
     });
   });
 });
