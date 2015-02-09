@@ -5,9 +5,14 @@ gem 'rails', '4.2.0'
 gem 'rails-api'
 
 gem 'pg'
+gem 'httparty'
 
 gem 'rack-cors', :require => 'rack/cors'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
+end
+
+group :test do
+  gem 'webmock'
 end

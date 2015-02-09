@@ -38,8 +38,8 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
-# The settings below are suggested to provide a good initial experience
-# with RSpec, but feel free to customize to your heart's content.
+  # The settings below are suggested to provide a good initial experience
+  # with RSpec, but feel free to customize to your heart's content.
 =begin
   # These two settings work together to allow you to limit a spec run
   # to individual examples or groups you care about by tagging them with
@@ -82,4 +82,21 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+
+  config.before(:each, type: :controller) do |example|
+    services = controller.send(:services, TestServiceProvider)
+
+    define_singleton_method(:services) do
+      services
+    end
+  end
+end
+
+class TestServiceProvider
+  include RSpec::Mocks::ExampleMethods
+  attr_reader :restaurants
+
+  def initialize(env)
+    @restaurants = instance_double(RestaurantService)
+  end
 end

@@ -11,6 +11,8 @@
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/reset.css">
+    <link rel="stylesheet" href="styles/grid.css">
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
@@ -22,7 +24,9 @@
     <!-- Add your site or application content here -->
     <h1>Hangry</h1>
 
-    <div ng-view=""></div>
+    <div class="container">
+      <div ng-view=""></div>
+    </div>
 
     <!-- build:js(.) scripts/oldieshim.js -->
     <!--[if lt IE 9]>
