@@ -1,3 +1,65 @@
-h1 {
-  color: red
+@import 'colors';
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+
+body {
+  background-color: $light_blue;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.header {
+  background-color: $dark_blue;
+  color: $light_blue;
+}
+
+.section {
+  padding: 50px 0;
+}
+
+input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 15px;
+
+  background: none;
+  border: 4px solid $light_blue;
+  border-radius: 6px;
+
+  font-size: 20px;
+  color: $light_blue;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.item-list {
+  display: inline-flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.item {
+  min-width: 20px;
+  padding: 10px;
+  margin-top: 13px;
+  margin-right: 13px;
+  display: inline-block;
+
+  color: $white;
+  border-radius: 3px;
+
+  &.blue {
+    background-color: $blue;
+  }
+
+  &.green{
+    background-color: $green;
+  }
+
+  &.deletable {
+    cursor: pointer;
+    &:hover {
+      background-color: $red;
+    }
+  }
 }

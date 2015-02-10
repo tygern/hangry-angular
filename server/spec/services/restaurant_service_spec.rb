@@ -42,7 +42,8 @@ describe RestaurantService do
     it "finds the restaurants by location" do
       result = subject.find({
                      latitude: 123,
-                     longitude: 321
+                     longitude: 321,
+                     tags: ["pickles", "mustard"]
                    })
 
       expect(result.map(&:name)).to match_array([
@@ -52,7 +53,8 @@ describe RestaurantService do
 
       expect(restaurant_client).to have_received(:find_by_location).with(
                                                                      latitude: 123,
-                                                                     longitude: 321
+                                                                     longitude: 321,
+                                                                     tags: ["pickles", "mustard"]
                                    )
     end
   end

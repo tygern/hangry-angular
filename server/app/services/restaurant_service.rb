@@ -6,7 +6,8 @@ class RestaurantService
   def find(attrs)
     restaurant_client.find_by_location(
                        latitude: attrs[:latitude],
-                       longitude: attrs[:longitude]
+                       longitude: attrs[:longitude],
+                       tags: attrs[:tags]
     ).map do |restaurant_data|
       Restaurant.new(restaurant_data)
     end

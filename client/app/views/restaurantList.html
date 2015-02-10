@@ -1,6 +1,34 @@
-<p>This is the restaurants view.</p>
-<ul>
-  <li ng-repeat="restaurant in restaurants">
-    {{restaurant.name}}
-  </li>
-</ul>
+<div class="header section">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 col-xs-12">
+        <form ng-submit="addTag()">
+          <input
+            ng-model="newTag"
+            type="text"
+            autocomplete="off"
+            autocapitalize="off"
+            placeholder="I'm hangry for..."
+            />
+        </form>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="item-list">
+
+          <span class="item green" ng-repeat="restaurant in restaurants">
+            {{restaurant.name}}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="section item-list">
+    <span class="item blue deletable" ng-repeat="tag in tags" ng-click="removeTag(tag)">
+      {{tag}}
+    </span>
+  </div>
+</div>

@@ -28,7 +28,7 @@ describe('RestaurantListCtrl', function () {
     });
   }));
 
-  it('gets the list of restaurants after finding the loation', function () {
+  it('gets the list of restaurants after finding the location', function () {
     locationDeferred.resolve({
       latitude: '123',
       longitude: '321'
@@ -40,7 +40,77 @@ describe('RestaurantListCtrl', function () {
 
     expect(RestaurantService.getList).toHaveBeenCalledWith({
       latitude: '123',
-      longitude: '321'
+      longitude: '321',
+      'tags[]': []
     });
   });
+
+  it('watches the list of tags and gets restaurants if they change', function () {
+    locationDeferred.resolve({
+      latitude: '123',
+      longitude: '321'
+    });
+    $scope.$apply();
+
+    $scope.restaurants = [];
+    RestaurantService.getList.calls.reset();
+
+    $scope.newTag = 'pickles';
+    $scope.addTag();
+
+    restaurantDeferred.resolve([{a: 'restaurant'}]);
+    $scope.$apply();
+
+    expect(RestaurantService.getList).toHaveBeenCalledWith({
+      latitude: '123',
+      longitude: '321',
+      'tags[]': ['pickles']
+    });
+    expect($scope.restaurants).toEqual([{a: 'restaurant'}]);
+  });
+
+  describe('addTag', function () {
+    it('adds a tag to tags and removes newTag', function () {
+      $scope.newTag = 'pickles';
+
+      $scope.addTag();
+
+      expect($scope.tags).toEqual(['pickles']);
+      expect($scope.newTag).toEqual(undefined);
+
+      $scope.newTag = 'mustard';
+
+      $scope.addTag();
+
+      expect($scope.tags).toEqual(['pickles', 'mustard']);
+    });
+
+    it('does not allow repeat tags', function () {
+      $scope.newTag = 'pickles';
+
+      $scope.addTag();
+
+      expect($scope.tags).toEqual(['pickles']);
+
+      $scope.newTag = 'pickles';
+
+      $scope.addTag();
+
+      expect($scope.tags).toEqual(['pickles']);
+    });
+  });
+
+  describe('removeTag', function () {
+    it('removes the tag with matching text', function () {
+      $scope.tags = ['mustard', 'pickles'];
+
+      $scope.removeTag('mustard');
+
+      expect($scope.tags).toEqual(['pickles']);
+
+      $scope.removeTag('potato');
+
+      expect($scope.tags).toEqual(['pickles']);
+    })
+  })
 });
