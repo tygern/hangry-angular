@@ -9,7 +9,9 @@ describe RestaurantsController do
 
       expect(JSON.parse(response.body)).to eq ["restaurant"]
       expect(services.restaurants).to have_received(:find).with({
-                                                                  "latitude" => "123", "longitude" => "321", "tags" => ["pickles", "mustard"], "controller"=>"restaurants", "action"=>"index"
+                                                                  "latitude" => "123",
+                                                                  "longitude" => "321",
+                                                                  "tags" => ["pickles", "mustard"]
                                                                 })
     end
   end
