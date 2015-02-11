@@ -9,11 +9,11 @@ angular
   ])
   .config(function ($routeProvider) {
     $routeProvider
+      //.when('/', {
+      //  templateUrl: 'views/main.html',
+      //  controller: 'MainCtrl'
+      //})
       .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
-      })
-      .when('/restaurants', {
         templateUrl: 'views/restaurantList.html',
         controller: 'RestaurantListCtrl'
       })
