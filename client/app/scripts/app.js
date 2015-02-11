@@ -3,21 +3,18 @@
 angular
   .module('hangryApp', [
     'ngResource',
-    'ngRoute',
+    'ui.router',
     'geolocation',
     'config'
   ])
-  .config(function ($routeProvider) {
-    $routeProvider
-      //.when('/', {
-      //  templateUrl: 'views/main.html',
-      //  controller: 'MainCtrl'
-      //})
-      .when('/', {
-        templateUrl: 'views/restaurantList.html',
-        controller: 'RestaurantListCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
+  .config(function ($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.otherwise("/restaurants");
+
+    $stateProvider
+      .state('restaurants', {
+        url: "/restaurants",
+        templateUrl: "views/restaurantList.html",
+        controller: "RestaurantListCtrl"
       });
-  });
+  }
+);
