@@ -1,34 +1,55 @@
-<div class="header section">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-6 col-xs-12">
-        <form ng-submit="addTag()">
-          <input
-            ng-model="newTag"
-            type="text"
-            autocomplete="off"
-            autocapitalize="off"
-            placeholder="I'm hangry for..."
-            />
-        </form>
+<div class="container">
+  <div class="section" layout="row" layout-sm="column" layout-margin layout-fill>
+    <div flex layout="column" layout-margin>
+      <div flex>
+        <md-whiteframe class="md-whiteframe-z4 card-input" layout layout-align="center center">
+          <div flex>
+            <form ng-submit="addTag()">
+              <md-input-container>
+                <label for="hangry">I'm hangry for...</label>
+                <input
+                  id="hangry"
+                  ng-model="newTag"
+                  type="text"
+                  autocomplete="off"
+                  autocapitalize="off"
+                  placeholder="I'm hangry for..."
+                  />
+              </md-input-container>
+            </form>
+          </div>
+        </md-whiteframe>
       </div>
 
-      <div class="col-sm-6">
-        <div class="item-list">
-
-          <span class="item green" ng-repeat="restaurant in restaurants">
-            {{restaurant.name}}
-          </span>
+      <div flex layout="row" layout-wrap>
+        <div
+          flex="25"
+          ng-class="::getColor(tag)"
+          class="color deletable"
+          ng-repeat="tag in tags"
+          ng-click="removeTag(tag)"
+          >
+          <div class="title">
+            {{tag}}
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
 
-<div class="container">
-  <div class="section item-list">
-    <span class="item blue deletable" ng-repeat="tag in tags" ng-click="removeTag(tag)">
-      {{tag}}
-    </span>
+    <div flex>
+      <md-grid-list flex md-cols="4" md-row-height="1:1" md-gutter="12px">
+        <md-grid-tile
+          ng-class="::getColor(restaurant.name)"
+          class="color"
+          md-rowspan=1
+          md-colspan=2
+          ng-repeat="restaurant in restaurants"
+          >
+          <div class="title">
+            {{restaurant.name}}
+          </div>
+        </md-grid-tile>
+      </md-grid-list>
+    </div>
   </div>
 </div>

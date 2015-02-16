@@ -1,6 +1,7 @@
 .idea
 server/log
 server/tmp
+server/.env
 client/dist
 client/node_modules
 client/bower_components

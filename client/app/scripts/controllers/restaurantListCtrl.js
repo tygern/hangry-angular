@@ -5,6 +5,13 @@ angular.module('hangryApp')
     var userLocation;
     $scope.tags = [];
 
+    var colors = [
+      "green",
+      "blue",
+      "orange",
+      "purple"
+    ];
+
     function getRestautrants(locationData) {
       locationData['tags[]'] = $scope.tags;
       return RestaurantService.getList(locationData).then(function (response) {
@@ -35,5 +42,9 @@ angular.module('hangryApp')
       $scope.tags = $scope.tags.filter(function (t) {
         return t !== tag;
       });
+    };
+
+    $scope.getColor = function(name) {
+      return colors[name.length % 4];
     };
   });
