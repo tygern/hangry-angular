@@ -5,23 +5,14 @@ angular.module('hangryApp')
     function find() {
       var deferred = $q.defer();
 
-      function resolveLocation() {
+      geolocation.getLocation().then(function (data) {
         deferred.resolve({
-          latitude: $window.localStorage.latitude,
-          longitude: $window.localStorage.longitude
+          latitude: data.coords.latitude,
+          longitude: data.coords.longitude
         });
-      }
-
-      if ($window.localStorage.latitude && $window.localStorage.longitude) {
-        resolveLocation();
-      } else {
-        geolocation.getLocation().then(function (data) {
-          $window.localStorage.latitude = data.coords.latitude;
-          $window.localStorage.longitude = data.coords.longitude;
-
-          resolveLocation();
-        });
-      }
+      }, function(error){
+        deferred.reject(error);
+      });
 
       return deferred.promise;
     }
